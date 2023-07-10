@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: rgb(189, 39, 189);
+  background-color: Black;
+}
+
+header {
+  display: inline;
+  background-color: rgb(189, 39, 189);
+  color: white;
+
+}
+
+#highscores {
+  display: inline-block;
+  align-items: left;
+
+}
+
+#time {
+  display: inline-block;
+  align-items: right;
+}
+
+.quiz {
+  display: block;
+  text-align: center;
+}
+
+h1 {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  color: rgb(189, 39, 189);
+
+}
+
+.hide {
+  display: none
+}
