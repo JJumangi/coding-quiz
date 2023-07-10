@@ -29,12 +29,15 @@ const questions = [{
 var qIndex = 0
 
 let score = 0
+
+
 const starter = document.querySelector("#starter");
 
 starter.addEventListener("click", function () {
   timer()
   starter.classList.add("hide")
   nextQuestion()
+
 });
 
 function nextQuestion() {                                               //this will load the next question
@@ -88,6 +91,11 @@ function timer() {                                                   //this will
   )
 
 }
+function updateLocalStorage() {                                                      //keep working (update local storage )
+  var score = { score: score }
+  localStorage.setItem("score", JSON.stringify(score))
+}
+
 
 function answerHandler(event) {
   console.log(event.target.dataset.correct)
@@ -102,4 +110,4 @@ function answerHandler(event) {
 }
 
 
-answer.addEventListener("click", answerHandler) 
+answer.addEventListener("click", answerHandler)
