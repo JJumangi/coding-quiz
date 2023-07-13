@@ -1,4 +1,7 @@
 var interval
+var qIndex = 0
+
+
 const answer = document.getElementById("answ");
 
 const questions = [{
@@ -6,7 +9,7 @@ const questions = [{
   a: [{ text: "Houston Texas Mountain Leauge", isCorrect: false },
   { text: "Hyper Timid Mighty Lakes", isCorrect: false },
   { text: "Hyper Text Markup Language", isCorrect: true },
-  { text: "Hyper Text Markup Language", isCorrect: false },
+  { text: "Hypar Taxt Merkup Lenguega", isCorrect: false },
   ]
 },
 {
@@ -26,17 +29,18 @@ const questions = [{
 }
 ]
 
-var qIndex = 0
 
-let score = 0
+let userResult
 
 
 const starter = document.querySelector("#starter");
 
-starter.addEventListener("click", function () {
+starter.addEventListener("click", function () {                   //this will begin game once the button 'start quiz' is clicked
   timer()
   starter.classList.add("hide")
+  currentScore()
   nextQuestion()
+
 
 });
 
@@ -57,21 +61,17 @@ function nextQuestion() {                                               //this w
 
 }
 
+var scoreEl = document.getElementById('score');
+var score = 0;
 
 function currentScore() {                                            //this will track and display the current score
-  let score = document.getElementById("score");
   answer.innerHTML = ""
 
-  if (isCorrect = true) {                                           //working***
-    score++
+} if (isCorrect = { isCorrect: true }) {
+  score = score +=
+    scoreEl.textContent = ("Your score is:" + score);
 
-  } else score--
 }
-
-
-
-
-
 
 
 
@@ -91,13 +91,21 @@ function timer() {                                                   //this will
   )
 
 }
-function updateLocalStorage() {                                                      //keep working (update local storage )
-  var score = { score: score }
-  localStorage.setItem("score", JSON.stringify(score))
+function saveScore() {                                                      //keep working (update local storage )
+  var stringify = JSON.stringify(scores)
+  localStorage.setItem("score", stringified)
+
 }
+console.log(saveScore)
+function getScore() {
+  var stringedValue = localStorage.getItem(scores)
+  if (stringedValue) {
 
 
-function answerHandler(event) {
+    score = JSON.parse(stringedValue)
+  }
+}
+function answerHandler(event) {                                 //if the user get's an incorrect answer, time will be deducted
   console.log(event.target.dataset.correct)
 
   if (event.target.dataset.correct === "false") {
@@ -106,6 +114,12 @@ function answerHandler(event) {
   }
   qIndex++
   nextQuestion()
+
+
+
+}
+
+function enterInitials() {
 
 }
 
