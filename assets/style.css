@@ -41,3 +41,11 @@ h1 {
 .hide {
   display: none
 }
+
+.inputInitialsStyle {
+  background: rgb(189, 39, 189);
+}
+
+.btnInitialsStyle {
+  background: white;
+}

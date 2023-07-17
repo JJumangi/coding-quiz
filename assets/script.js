@@ -11,7 +11,7 @@ let userResult
 var secondsLeft = 30
 var q;
 var a;
-var scoresArray = []
+var scoresArray = JSON.parse(localStorage.getItem("savedScores")) || [];
 
 const questions = [
   {
@@ -39,31 +39,39 @@ const questions = [
   }
 ]
 
+var inputEl;
 
 function showGameOverEl() {
   mainContainer.innerHTML = ""
-  const inputEl = document.createElement("input");
-  const btnEl = document.createElement("button");
-  btnEl.textContent = "Add Initials";
-  inputEl.classList.add(inputInitialsStyle);
-  btnEl.classList.add(btnInitialsStyle);
-  btnEl.addEventListener('click', addUserScoreToLocal())
-  mainContainer.append(inputEl)
-  mainContainer.append(btnEl)
+  inputEl = document.createElement("input");
+  var btnEl = document.createElement("button");
+  var ulEl = document.createElement("ul");
+  btnEl.innerHTML = "Add Initials";
+  inputEl.classList.add("inputInitialsStyle");
+  btnEl.classList.add("btnInitialsStyle");
+  btnEl.addEventListener('click', addUserScoreToLocal)
+  for (let i = 0; i < scoresArray.length; i++) {
+    var liEl = document.createElement("li");
+    liEl.textContent = `Initials: ${scoresArray[i].userInitials}, Scores: ${scoresArray[i].userScore}`;
+    ulEl.appendChild(liEl)
+  }
+  mainContainer.append(inputEl);
+  mainContainer.append(btnEl);
+  mainContainer.append(ulEl)
 }
 
 function addUserScoreToLocal() {
   // get the user current user score and initials and save to object
-  const userInitials = inputEl.textContent;
-  const userScore = score;
+  var userInitials = inputEl.value;
+  var userScore = score;
 
-  const userObject = {
+  var userObject = {
     userInitials,
     userScore
   }
 
   // add the object to the array
-  scoresArray = scoresArray.append(userObject);
+  scoresArray.push(userObject);
 
   // stringify the object and save to local
   localStorage.setItem("savedScores", JSON.stringify(scoresArray))
@@ -79,6 +87,8 @@ function nextQuestion() {
 
   if (qIndex > questions.length - 1) {
     showGameOverEl();
+    clearInterval(interval)
+    timeEl.textContent = '0';
     // run some custom function here to show the field for entering initials and score
     // then return null like below
     return null;
@@ -97,14 +107,7 @@ function nextQuestion() {
   }
 }
 
-//this will track and display the current score
-// function currentScore() {
-//   answer.innerHTML = ""
-//   if (isCorrect = { isCorrect: true }) {
-//     score +=
-//       scoreEl.textContent = " " + score;
-//   }
-// }
+
 
 function timer() {                                                   //this will track the time left in the game
   interval = setInterval(function () {
@@ -112,6 +115,7 @@ function timer() {                                                   //this will
     timeEl.textContent = secondsLeft + " seconds left ";
     if (secondsLeft <= 0) {
       clearInterval(interval)
+      timeEl.textContent = '0';
       alert("You game has run out of time... please refresh the page to try again")
       //allow for user to save score thus far
     }
@@ -120,15 +124,21 @@ function timer() {                                                   //this will
 
 }
 
-function saveScore() {                                                      // (update local storage )
-  const stringify = JSON.stringify(scores)
-  localStorage.setItem("score", stringifiedScores)
-}
+// function endQuiz () {
+//   if ( qIndex === questions.length) {
+//       return showGameOverEl()
+//   }
+// }
 
-function getScore() {
-  const existingScoresArray = JSON.parse(localStorage.getItem("savedScores"));
-  scoresArray = scoresArray.append(...existingScoresArray);
-}
+// function saveScore() {                                                      // (update local storage )
+//   const stringify = JSON.stringify(scores)
+//   localStorage.setItem("score", stringifiedScores)
+// }
+
+// function getScore() {
+//   const existingScoresArray = JSON.parse(localStorage.getItem("savedScores")) || [];
+//   scoresArray = scoresArray.push(existingScoresArray);
+// }
 
 //if the user get's an incorrect answer, time will be deducted
 function answerHandler(event) {
@@ -146,18 +156,15 @@ function answerHandler(event) {
   nextQuestion()
 }
 
-function enterInitials() {
-
-}
 
 
 answer.addEventListener("click", answerHandler)
 starter.addEventListener("click", function () {                   //this will begin game once the button 'start quiz' is clicked
   timer()
   starter.classList.add("hide")
-  currentScore()
+  //currentScore()
   nextQuestion()
 });
 
 // run getScores when this file is read by the brwoswer
-getScore();
+// getScore();
