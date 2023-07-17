@@ -44,6 +44,7 @@ h1 {
 
 .inputInitialsStyle {
   background: rgb(189, 39, 189);
+  list-style-type: none;
 }
 
 .btnInitialsStyle {

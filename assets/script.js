@@ -152,7 +152,7 @@ function answerHandler(event) {
 
   qIndex++;
   // update the score element with the value of your variable 'score'
-  scoreEl.textContent = "Your score is" + score + ".";
+  scoreEl.textContent = "Your score is " + score + " .";
   nextQuestion()
 }
 
