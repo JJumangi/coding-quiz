@@ -38,9 +38,7 @@ const questions = [
     ]
   }
 ]
-
 var inputEl;
-
 function showGameOverEl() {
   mainContainer.innerHTML = ""
   inputEl = document.createElement("input");
@@ -59,45 +57,28 @@ function showGameOverEl() {
   mainContainer.append(btnEl);
   mainContainer.append(ulEl)
 }
-
 function addUserScoreToLocal() {
   // get the user current user score and initials and save to object
   var userInitials = inputEl.value;
   var userScore = score;
-
   var userObject = {
     userInitials,
     userScore
   }
-
-  // add the object to the array
   scoresArray.push(userObject);
-
-  // stringify the object and save to local
   localStorage.setItem("savedScores", JSON.stringify(scoresArray))
 }
-
 //this will load the next question
 function nextQuestion() {
   answer.innerHTML = ""
-
-  // let's check if the qIndex value is greater than the array length - 1
-  // if it is, then show some other screen, element, whatever, end the game.
-  // otherwise don't do anything
-
   if (qIndex > questions.length - 1) {
     showGameOverEl();
     clearInterval(interval)
     timeEl.textContent = '0';
-    // run some custom function here to show the field for entering initials and score
-    // then return null like below
     return null;
   }
-
-
   q = questions[qIndex].q
   a = questions[qIndex].a
-
   questionsEl.textContent = q
   for (let i = 0; i < a.length; i++) {
     const buttonEl = document.createElement("button")
@@ -106,8 +87,6 @@ function nextQuestion() {
     answer.append(buttonEl)
   }
 }
-
-
 
 function timer() {                                                   //this will track the time left in the game
   interval = setInterval(function () {
@@ -121,25 +100,7 @@ function timer() {                                                   //this will
     }
   }, 1000
   )
-
 }
-
-// function endQuiz () {
-//   if ( qIndex === questions.length) {
-//       return showGameOverEl()
-//   }
-// }
-
-// function saveScore() {                                                      // (update local storage )
-//   const stringify = JSON.stringify(scores)
-//   localStorage.setItem("score", stringifiedScores)
-// }
-
-// function getScore() {
-//   const existingScoresArray = JSON.parse(localStorage.getItem("savedScores")) || [];
-//   scoresArray = scoresArray.push(existingScoresArray);
-// }
-
 //if the user get's an incorrect answer, time will be deducted
 function answerHandler(event) {
   console.log(event.target.dataset.correct)
@@ -151,12 +112,9 @@ function answerHandler(event) {
   }
 
   qIndex++;
-  // update the score element with the value of your variable 'score'
   scoreEl.textContent = "Your score is " + score + " .";
   nextQuestion()
 }
-
-
 
 answer.addEventListener("click", answerHandler)
 starter.addEventListener("click", function () {                   //this will begin game once the button 'start quiz' is clicked
@@ -165,6 +123,3 @@ starter.addEventListener("click", function () {                   //this will be
   //currentScore()
   nextQuestion()
 });
-
-// run getScores when this file is read by the brwoswer
-// getScore();
