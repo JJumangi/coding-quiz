@@ -87,8 +87,8 @@ function nextQuestion() {
     answer.append(buttonEl)
   }
 }
-
-function timer() {                                                   //this will track the time left in the game
+//this will track the time left in the game
+function timer() {
   interval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left ";
